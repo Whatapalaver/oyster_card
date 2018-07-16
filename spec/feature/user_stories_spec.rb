@@ -30,8 +30,18 @@ describe 'user stories' do
             oystercard.top_up(20)
             expect {oystercard.top_up(max_balance - 19) }.to raise_error "Cannot top_up: Maximum balance of #{max_balance} would be exceeded"
         end
-
-
-
     end
+
+    describe 'user story 4' do
+    # In order to pay for my journey
+    # As a customer
+    # I need my fare deducted from my card
+        it 'deducts fares from balance' do
+            oystercard.top_up(20)
+            oystercard.deduct(5)
+            expect(oystercard.balance).to eq(15)
+        end
+    end
+
+
 end

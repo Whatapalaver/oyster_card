@@ -10,4 +10,8 @@ class Oystercard
         raise "Cannot top_up: Maximum balance of #{MAXIMUM_BALANCE} would be exceeded" if (@balance + amt) > MAXIMUM_BALANCE
         @balance += amt
     end
+    
+    def deduct(fare)
+        @balance -= fare
+    end
 end
