@@ -1,7 +1,8 @@
 require_relative '../../lib/oystercard.rb'
 describe 'user stories' do
     let(:oystercard) {Oystercard.new}
-    let(:station){ double :station }
+    let(:entry_station){ double :station }
+    let(:exit_station){ double :station }
 
     describe 'user story 1' do
     # In order to use public transport
@@ -52,11 +53,11 @@ describe 'user stories' do
 
         it 'allows me to touch in and be in journey' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-            oystercard.touch_in(station)
+            oystercard.touch_in(entry_station)
             expect(oystercard).to be_in_journey
         end
         it 'allows me to touch out and not be in journey' do
-            oystercard.touch_out
+            oystercard.touch_out(exit_station)
             expect(oystercard).not_to be_in_journey
         end
     end
@@ -67,7 +68,7 @@ describe 'user stories' do
     # I need to have the minimum amount (£1) for a single journey.
 
         it 'on touch in it tests balance for minimum fare value' do
-            expect { oystercard.touch_in(station) }.to raise_error "Touch in failed: Minimum fare of at least #{Oystercard::MINIMUM_FARE} required"
+            expect { oystercard.touch_in(entry_station) }.to raise_error "Touch in failed: Minimum fare of at least #{Oystercard::MINIMUM_FARE} required"
         end
     end
 
@@ -77,8 +78,8 @@ describe 'user stories' do
     # When my journey is complete, I need the correct amount deducted from my card
         it 'deducts minumum fare from balance' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-            oystercard.touch_in(station) 
-            expect { oystercard.touch_out }.to change{oystercard.balance}.by (-Oystercard::MINIMUM_FARE)
+            oystercard.touch_in(entry_station) 
+            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::MINIMUM_FARE)
         end
     end
 
@@ -88,8 +89,20 @@ describe 'user stories' do
     # I need to know where I've travelled from
         it 'returns the entry station' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-            oystercard.touch_in(station)
-            expect(oystercard.entry_station).to eq(station)
+            oystercard.touch_in(entry_station)
+            expect(oystercard.entry_station).to eq(entry_station)
+        end
+    end
+
+    describe 'user story 9' do
+    # In order to know where I have been
+    # As a customer
+    # I want to see all my previous trips
+        it 'returns the exit station of a journey' do
+            oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+            oystercard.touch_in(entry_station)
+            oystercard.touch_out(exit_station)
+            expect(oystercard.journey).to eq("Journey was #{entry_station} to #{exit_station}")
         end
     end
 end
