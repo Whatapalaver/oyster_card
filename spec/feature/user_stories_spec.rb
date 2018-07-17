@@ -43,5 +43,12 @@ describe 'user stories' do
         end
     end
 
+    describe 'user story 5' do
+    # In order to get through the barriers.
+    # As a customer
+    # I need to touch in and out.
+
+    
+    end
 
 end
