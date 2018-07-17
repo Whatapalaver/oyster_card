@@ -48,7 +48,27 @@ describe 'user stories' do
     # As a customer
     # I need to touch in and out.
 
-    
+        it 'allows me to touch in and be in journey' do
+            oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+            oystercard.touch_in
+            expect(oystercard).to be_in_journey
+        end
+        it 'allows me to touch out and not be in journey' do
+            oystercard.touch_out
+            expect(oystercard).not_to be_in_journey
+        end
     end
 
+    describe 'user story 6' do
+    # In order to pay for my journey
+    # As a customer
+    # I need to have the minimum amount (£1) for a single journey.
+
+        it 'on touch in it tests balance for minimum fare value' do
+            expect { oystercard.touch_in }.to raise_error 'Touch in failed: Minimum fare required'
+        end
+
+
+
+    end
 end
