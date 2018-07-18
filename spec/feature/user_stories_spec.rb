@@ -3,7 +3,7 @@ describe 'user stories' do
     let(:oystercard) {Oystercard.new}
     let(:entry_station){ double :station }
     let(:exit_station){ double :station }
-
+    let(:station){ double :station }
     describe 'user story 1' do
     # In order to use public transport
     # As a customer
@@ -108,6 +108,16 @@ describe 'user stories' do
             expected_array = []
             expected_array << expected_hash
             expect(oystercard.journeys).to eq(expected_array)
+        end
+    end
+
+    describe 'user story 10' do
+    # In order to know how far I have travelled
+    # As a customer
+    # I want to know what zone a station is in
+        it 'returns the zone of a specific station' do
+            shoreditch = Station.new("Shoreditch",1)
+            expect(shoreditch.zone).to eq(1)
         end
     end
 end
