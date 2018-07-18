@@ -23,13 +23,17 @@ class Oystercard
         journey = {}
         journey[:entry_station] = @entry_station
         journey[:exit_station] = @exit_station
+        @entry_station = nil
         @journeys << journey
+        journey
     end
 
     def touch_out(station)
         deduct(MINIMUM_FARE)
-        @entry_station = nil
-        @exit_station = station 
+        # @entry_station = nil
+        @exit_station = station
+        journey
+        @exit_station
     end
 
     def in_journey?

@@ -98,11 +98,14 @@ describe 'user stories' do
     # In order to know where I have been
     # As a customer
     # I want to see all my previous trips
-        it 'returns the exit station of a journey' do
+        it 'returns a list of journeys including the latest journey' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-            oystercard.touch_in(entry_station)
-            oystercard.touch_out(exit_station)
-            expect(oystercard.journey).to eq("Journey was #{entry_station} to #{exit_station}")
+            oystercard.touch_in("Aldgate")
+            oystercard.touch_out("Shoreditch")
+            expected_hash = {:entry_station => "Aldgate", :exit_station => "Shoreditch"}
+            expected_array = []
+            expected_array << expected_hash
+            expect(oystercard.journeys).to eq(expected_array)
         end
     end
 end

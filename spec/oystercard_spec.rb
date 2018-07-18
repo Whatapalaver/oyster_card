@@ -24,7 +24,7 @@ describe Oystercard do
     
     describe 'touch_in' do
         context 'balance above minimum' do
-            before do
+             before do
                 oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
             end
             it 'responds to touch_in' do
@@ -78,7 +78,7 @@ describe Oystercard do
             it 'stores a journey' do
                 oystercard.touch_in(entry_station)
                 oystercard.touch_out(exit_station)
-                expect(oystercard.journeys).to include journey
+                expect(oystercard.journeys).to include (journey)
             end
         end
     end
