@@ -120,4 +120,20 @@ describe 'user stories' do
             expect(shoreditch.zone).to eq(1)
         end
     end
+
+    describe 'user story 11' do
+    # In order to be charged correctly
+    # As a customer
+    # I need a penalty charge deducted if I fail to touch in or out
+
+        it 'reduces balance by penalty amount if journey completed without touch out' do
+            oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+            oystercard.touch_in(entry_station)
+            expect { oystercard.touch_in(entry_station) }.to change{oystercard.balance}.by (-Oystercard::PENALTY)
+        end
+        it 'reduces balance by penalty amount if journey completed without touch in' do
+            oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::PENALTY)
+        end
+    end
 end
