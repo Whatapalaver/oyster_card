@@ -54,6 +54,7 @@ describe Oystercard do
                 expect(oystercard).to respond_to(:touch_out)
             end
             it 'changes in_journey? to false' do
+                oystercard.touch_in(entry_station) 
                 oystercard.touch_out(exit_station)
                 expect(oystercard).not_to be_in_journey
             end
@@ -62,6 +63,7 @@ describe Oystercard do
                 expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::MINIMUM_FARE)
             end
             it 'returns the exit station' do
+                oystercard.touch_in(entry_station) 
                 oystercard.touch_out(exit_station)
                 expect(oystercard.exit_station).to eq exit_station
             end

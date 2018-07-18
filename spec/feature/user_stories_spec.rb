@@ -57,6 +57,8 @@ describe 'user stories' do
             expect(oystercard).to be_in_journey
         end
         it 'allows me to touch out and not be in journey' do
+            oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+            oystercard.touch_in(entry_station)
             oystercard.touch_out(exit_station)
             expect(oystercard).not_to be_in_journey
         end
