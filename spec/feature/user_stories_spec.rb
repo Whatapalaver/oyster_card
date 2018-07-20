@@ -1,4 +1,5 @@
 require_relative '../../lib/oystercard.rb'
+require_relative '../../lib/journey.rb'
 describe 'user stories' do
     let(:oystercard) {Oystercard.new}
     let(:entry_station){ double :station }
@@ -70,7 +71,7 @@ describe 'user stories' do
     # I need to have the minimum amount (£1) for a single journey.
 
         it 'on touch in it tests balance for minimum fare value' do
-            expect { oystercard.touch_in(entry_station) }.to raise_error "Touch in failed: Minimum fare of at least #{Oystercard::MINIMUM_FARE} required"
+            expect { oystercard.touch_in(entry_station) }.to raise_error "Touch in failed: Minimum fare of at least #{Journey::MINIMUM_FARE} required"
         end
     end
 
@@ -81,7 +82,7 @@ describe 'user stories' do
         it 'deducts minumum fare from balance' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
             oystercard.touch_in(entry_station) 
-            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::MINIMUM_FARE)
+            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Journey::MINIMUM_FARE)
         end
     end
 
@@ -129,11 +130,11 @@ describe 'user stories' do
         it 'reduces balance by penalty amount if journey completed without touch out' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
             oystercard.touch_in(entry_station)
-            expect { oystercard.touch_in(entry_station) }.to change{oystercard.balance}.by (-Oystercard::PENALTY)
+            expect { oystercard.touch_in(entry_station) }.to change{oystercard.balance}.by (-Journey::PENALTY)
         end
         it 'reduces balance by penalty amount if journey completed without touch in' do
             oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::PENALTY)
+            expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Journey::PENALTY)
         end
     end
 end

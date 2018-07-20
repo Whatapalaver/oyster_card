@@ -1,9 +1,12 @@
 require 'oystercard'
+require 'journey'
+
 describe Oystercard do
 
     subject(:oystercard) {described_class.new}
     let(:entry_station){ double :station }
     let(:exit_station){ double :station }
+    let(:min_fare) {Journey::MINIMUM_FARE}
     let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
     describe '#initialize' do
@@ -41,7 +44,7 @@ describe Oystercard do
         end
         context 'balance below minimum' do
             it 'raises an error' do
-                expect { oystercard.touch_in(entry_station) }.to raise_error "Touch in failed: Minimum fare of at least #{Oystercard::MINIMUM_FARE} required"
+                expect { oystercard.touch_in(entry_station) }.to raise_error "Touch in failed: Minimum fare of at least #{min_fare} required"
             end
         end
     end
@@ -60,7 +63,7 @@ describe Oystercard do
             end
             it 'deducts minumum fare from balance' do
                 oystercard.touch_in(entry_station) 
-                expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-Oystercard::MINIMUM_FARE)
+                expect { oystercard.touch_out(exit_station) }.to change{oystercard.balance}.by (-min_fare)
             end
             it 'returns the exit station' do
                 oystercard.touch_in(entry_station) 

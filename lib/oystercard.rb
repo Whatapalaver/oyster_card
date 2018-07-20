@@ -1,8 +1,9 @@
 require_relative 'station'
+require_relative 'journey'
+
 class Oystercard
     MAXIMUM_BALANCE = 90
-    MINIMUM_FARE = 1
-    PENALTY = 9
+    
     attr_reader :balance, :journeys, :entry_station, :exit_station
    
     def initialize
@@ -17,9 +18,9 @@ class Oystercard
     end
 
     def touch_in(station)
-        raise "Touch in failed: Minimum fare of at least #{MINIMUM_FARE} required" unless minimum_fare_balance?
+        raise "Touch in failed: Minimum fare of at least #{Journey::MINIMUM_FARE} required" unless minimum_fare_balance?
         @entry_station = station
-        deduct(PENALTY) if not_touched_out(journeys)
+        deduct(Journey::PENALTY) if not_touched_out(journeys)
         journeys << {entry_station: station, exit_station: nil}
     end
 
@@ -27,9 +28,9 @@ class Oystercard
         @exit_station = station
         if not_touched_in(journeys)
             journeys << { entry_station: nil, exit_station: exit_station }
-            deduct(PENALTY)
+            deduct(Journey::PENALTY)
         else
-            deduct(MINIMUM_FARE)
+            deduct(Journey::MINIMUM_FARE)
             journeys.last[:exit_station] = station
         end
         @entry_station = nil
@@ -51,7 +52,7 @@ class Oystercard
     end
 
     def minimum_fare_balance?
-        @balance >= MINIMUM_FARE
+        @balance >= Journey::MINIMUM_FARE
     end
 
     def not_touched_in(journeys)
