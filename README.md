@@ -49,3 +49,15 @@ Here's the [irb text file](https://github.com/Whatapalaver/oyster_card/blob/mast
 2.5.1 :022 > card.balance
  => 31
 ```
+
+## Still Outstanding
+### Section 15
+- [ ] extract a JourneyLog class. It should be responsible for starting a journey, ending a journey and returning a list of journeys.
+### Section 16
+- [ ] Calculating fares between zones
+```
+In order to be charged the correct amount
+As a customer
+I need to have the correct fare calculated
+```
+
