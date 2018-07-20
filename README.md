@@ -1,6 +1,6 @@
 This was a tricky challenge with a total stumbling block at section 14 when it came to handle penalties and extract the Journey class.
 
-Here's the [irb text file]() to test normal journeys (in then out) and two edge cases (in then in) and (out only).
+Here's the [irb text file](https://github.com/Whatapalaver/oyster_card/blob/master/doc/irb_test.txt) to test normal journeys (in then out) and two edge cases (in then in) and (out only).
 
 ```ruby
  irb                                                                                                                             ✔  21:38:39
