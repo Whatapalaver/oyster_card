@@ -6,7 +6,7 @@ class Journey
 
   attr_reader :fare, :entry_station, :exit_station
 
-  def initialize(entry_station = nil)
+  def initialize(entry_station = "TBC")
     @entry_station = entry_station
     @complete = !entry_station
   end
