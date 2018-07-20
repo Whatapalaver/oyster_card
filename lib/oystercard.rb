@@ -22,16 +22,23 @@ class Oystercard
   def touch_in(station)
     raise "Touch in failed: Minimum fare of at least #{Journey::MINIMUM_FARE} required" unless minimum_fare_balance?
     @entry_station = station
-    deduct(Journey::PENALTY) if not_touched_out(journeys)
-    @journey = Journey.new(station)
-    journeys << { entry_station: station, exit_station: nil }
+    if not_touched_out(journeys)
+      deduct(@journey.fare) 
+      journeys.last[:exit_station] = station
+      @journey = nil
+    else
+      @journey = Journey.new(station)
+      journeys << { entry_station: station, exit_station: nil }
+    end
   end
 
   def touch_out(station)
     @exit_station = station
     if not_touched_in(journeys)
+      @journey = Journey.new(station)
       journeys << { entry_station: nil, exit_station: exit_station }
-      deduct(Journey::PENALTY)
+      deduct(@journey.fare)
+      @journey = nil
     else
       @entry_station = nil
       @journey.finish(station)

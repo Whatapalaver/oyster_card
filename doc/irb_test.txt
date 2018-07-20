@@ -1,0 +1,54 @@
+# touch_in followed by touch_out - normal test
+require './lib/oystercard.rb'
+card = Oystercard.new
+card.top_up(50)
+card.touch_in("North")
+card.journey
+card.touch_out("Aldgate")
+card.journey
+card.journeys 
+card.balance
+
+
+# touch_in followed by touch_in test
+require './lib/oystercard.rb'
+card = Oystercard.new
+card.top_up(50)
+card.touch_in("North")
+card.journey
+card.touch_in("South")
+card.journey
+card.journeys 
+card.balance
+
+# touch_out (without touch_in) test
+require './lib/oystercard.rb'
+card = Oystercard.new
+card.top_up(50)
+card.touch_out("South")
+card.journey
+card.journeys 
+card.balance
+
+# ALl 3 journeys together
+require './lib/oystercard.rb'
+card = Oystercard.new
+card.top_up(50)
+card.touch_in("North")
+card.journey
+card.touch_out("South")
+card.journey
+card.journeys 
+card.balance
+# journey 2
+card.touch_in("Balham")
+card.journey
+card.touch_in("Moorgate")
+card.journey
+card.journeys 
+card.balance
+# journey 3
+card.touch_out("Aldgate")
+card.journey
+card.journeys 
+card.balance
