@@ -49,6 +49,8 @@ card.journey
 card.journey_history
 card.balance # expect 40
 # journey 3 (penalty fare expected)
+card.journey
+card.in_journey?
 card.touch_out("Aldgate")
 card.journey
 card.journey_history
