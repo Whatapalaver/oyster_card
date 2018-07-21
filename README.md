@@ -1,6 +1,6 @@
 This was a tricky challenge with a total stumbling block at section 14 when it came to handle penalties and extract the Journey class.
 
-Here's the [irb text file]() to test normal journeys (in then out) and two edge cases (in then in) and (out only).
+Here's the [irb text file](https://github.com/Whatapalaver/oyster_card/blob/master/doc/irb_test.txt) to test normal journeys (in then out) and two edge cases (in then in) and (out only).
 
 ```ruby
  irb                                                                                                                             ✔  21:38:39
@@ -49,3 +49,15 @@ Here's the [irb text file]() to test normal journeys (in then out) and two edge 
 2.5.1 :022 > card.balance
  => 31
 ```
+
+## Still Outstanding
+### Section 15
+- [ ] extract a JourneyLog class. It should be responsible for starting a journey, ending a journey and returning a list of journeys.
+### Section 16
+- [ ] Calculating fares between zones
+```
+In order to be charged the correct amount
+As a customer
+I need to have the correct fare calculated
+```
+
