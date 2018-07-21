@@ -49,23 +49,23 @@ describe 'user stories' do
   #     end
   # end
 
-  describe 'user story 5' do
-    # In order to get through the barriers.
-    # As a customer
-    # I need to touch in and out.
+  # describe 'user story 5' do
+  #   # In order to get through the barriers.
+  #   # As a customer
+  #   # I need to touch in and out.
 
-    it 'allows me to touch in and be in journey' do
-      oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-      oystercard.touch_in(entry_station)
-      expect(oystercard).to be_in_journey
-    end
-    it 'allows me to touch out and not be in journey' do
-      oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard).not_to be_in_journey
-    end
-  end
+  #   it 'allows me to touch in and be in journey' do
+  #     oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+  #     oystercard.touch_in(entry_station)
+  #     expect(oystercard).to be_in_journey
+  #   end
+  #   it 'allows me to touch out and not be in journey' do
+  #     oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
+  #     oystercard.touch_in(entry_station)
+  #     oystercard.touch_out(exit_station)
+  #     expect(oystercard).not_to be_in_journey
+  #   end
+  # end
 
   describe 'user story 6' do
     # In order to pay for my journey
@@ -110,7 +110,7 @@ describe 'user stories' do
       expected_hash = { entry_station: 'Aldgate', exit_station: 'Shoreditch' }
       expected_array = []
       expected_array << expected_hash
-      expect(oystercard.journeys).to eq(expected_array)
+      expect(oystercard.journey_history).to eq(expected_array)
     end
   end
 

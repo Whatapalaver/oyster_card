@@ -6,7 +6,7 @@ card.touch_in("North")
 card.journey
 card.touch_out("Aldgate")
 card.journey
-card.journeys 
+card.journey_history
 card.balance
 
 
@@ -18,7 +18,7 @@ card.touch_in("North")
 card.journey
 card.touch_in("South")
 card.journey
-card.journeys 
+card.journey_history 
 card.balance
 
 # touch_out (without touch_in) test
@@ -27,28 +27,36 @@ card = Oystercard.new
 card.top_up(50)
 card.touch_out("South")
 card.journey
-card.journeys 
+card.journey_history 
 card.balance
 
 # ALl 3 journeys together
 require './lib/oystercard.rb'
+# journey 1 (normal fare expected)
 card = Oystercard.new
 card.top_up(50)
 card.touch_in("North")
 card.journey
 card.touch_out("South")
 card.journey
-card.journeys 
-card.balance
-# journey 2
+card.journey_history 
+card.balance # expect 49
+# journey 2 (penalty fare expected)
 card.touch_in("Balham")
 card.journey
 card.touch_in("Moorgate")
 card.journey
-card.journeys 
-card.balance
-# journey 3
+card.journey_history
+card.balance # expect 40
+# journey 3 (penalty fare expected)
 card.touch_out("Aldgate")
 card.journey
-card.journeys 
-card.balance
+card.journey_history
+card.balance # expect 31
+# journey 4 (normal)
+card.touch_in("Blue")
+card.journey
+card.touch_out("Red")
+card.journey
+card.journey_history 
+card.balance # expect 30

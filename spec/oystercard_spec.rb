@@ -34,10 +34,10 @@ describe Oystercard do
       it 'responds to touch_in' do
         expect(oystercard).to respond_to(:touch_in)
       end
-      it 'changes in_journey? to true' do
-        oystercard.touch_in(entry_station)
-        expect(oystercard).to be_in_journey
-      end
+      # it 'changes in_journey? to true' do
+      #   oystercard.touch_in(entry_station)
+      #   expect(oystercard).to be_in_journey
+      # end
       it 'returns the entry station' do
         oystercard.touch_in(entry_station)
         expect(oystercard.entry_station).to eq entry_station
@@ -57,11 +57,11 @@ describe Oystercard do
       it 'responds to touch_out' do
         expect(oystercard).to respond_to(:touch_out)
       end
-      it 'changes in_journey? to false' do
-        oystercard.touch_in(entry_station)
-        oystercard.touch_out(exit_station)
-        expect(oystercard).not_to be_in_journey
-      end
+      # it 'changes in_journey? to false' do
+      #   oystercard.touch_in(entry_station)
+      #   oystercard.touch_out(exit_station)
+      #   expect(oystercard).not_to be_in_journey
+      # end
       it 'deducts minumum fare from balance' do
         oystercard.touch_in(entry_station)
         expect { oystercard.touch_out(exit_station) }.to change { oystercard.balance }.by -min_fare
@@ -79,12 +79,12 @@ describe Oystercard do
         oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
       end
       it 'has an empty list of journeys by default' do
-        expect(oystercard.journeys).to be_empty
+        expect(oystercard.journey_history).to be_empty
       end
       it 'stores a journey' do
         oystercard.touch_in(entry_station)
         oystercard.touch_out(exit_station)
-        expect(oystercard.journeys).to include journey
+        expect(oystercard.journey_history).to include journey
       end
     end
   end
